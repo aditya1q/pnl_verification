@@ -102,3 +102,17 @@ From `backend`:
 ```
 
 The Mongo tests use temporary databases and are skipped when MongoDB is not running.
+
+## Database backup / restore (one file)
+From the `backend` folder (uses `MONGODB_URI` / `MONGODB_DATABASE` from `.env`):
+
+```powershell
+# Export every collection (data + indexes) to one compressed file in data\db_dumps\
+.venv\Scripts\python -m app.db_dump export
+
+# Restore that file into the database (replaces each collection in the file)
+.venv\Scripts\python -m app.db_dump import data\db_dumps\trade_ingestion_YYYYMMDD_HHMM.bson.gz
+```
+
+Options: `--out <file>` (export path), `--db <name>` / `--uri <uri>` (another database or server), `--keep` (import without replacing existing collections).
+The dump contains client data: `backend/data/` is git-ignored, so share the file privately rather than through the repository.
