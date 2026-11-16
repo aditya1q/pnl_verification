@@ -19,7 +19,6 @@ function TotalsRow({ s, days }) {
       <TableCell className={totalClass({ num: true, tone: pnlClass(s.realized_pnl) })}>{money(s.realized_pnl)}</TableCell>
       <TableCell className={totalClass({ num: true, tone: pnlClass(s.unrealized_pnl) })} title="As of the last day of the period">{money(s.unrealized_pnl)}</TableCell>
       <TableCell className={totalClass({ num: true, tone: pnlClass(s.broker_mtm) })} title="Realised in the period + unrealised at its end">{money(s.broker_mtm)}</TableCell>
-      <TableCell className={totalClass({ num: true, tone: pnlClass(s.mtm_pnl) })}>{money(s.mtm_pnl)}</TableCell>
       <TableCell className={totalClass({ num: true })}>{count(s.matched_trades)}</TableCell>
     </>
   );
@@ -44,7 +43,6 @@ export default function DailyTable({ daily, summary, sort, setSort, page, setPag
               <TableCell className={cellClass({ num: true, strong: true, tone: pnlClass(row.realized_pnl) })}>{money(row.realized_pnl)}</TableCell>
               <TableCell className={cellClass({ num: true, strong: true, tone: pnlClass(row.unrealized_pnl) })}>{money(row.unrealized_pnl)}</TableCell>
               <TableCell className={cellClass({ num: true, strong: true, tone: pnlClass(row.broker_mtm) })}>{money(row.broker_mtm)}</TableCell>
-              <TableCell className={cellClass({ num: true, tone: pnlClass(row.mtm_pnl) })}>{money(row.mtm_pnl)}</TableCell>
               <TableCell className={cellClass({ num: true })}>{count(row.matched_trades)}</TableCell>
             </TableRow>
           ))}

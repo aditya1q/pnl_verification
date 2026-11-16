@@ -8,7 +8,6 @@ export const DAILY_COLUMNS = [
   { key: "realized_pnl", label: "Realized P&L", align: "right" },
   { key: "unrealized_pnl", label: "Unrealized P&L (EOD)", align: "right" },
   { key: "broker_mtm", label: "MTM (Realised + Unrealised)", align: "right" },
-  { key: "mtm_pnl", label: "Change vs prev. close", align: "right" },
   { key: "matched_trades", label: "Squared-off Contracts", align: "right" },
 ];
 

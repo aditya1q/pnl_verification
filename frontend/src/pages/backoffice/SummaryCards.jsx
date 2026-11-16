@@ -1,11 +1,11 @@
-import { Activity, ArrowDownToLine, ArrowUpFromLine, CircleCheck, Layers, Scale, Sigma, TrendingUp } from "lucide-react";
+import { Activity, ArrowDownToLine, ArrowUpFromLine, CircleCheck, Layers, Scale, TrendingUp } from "lucide-react";
 import Skeleton from "@/components/common/Skeleton";
 import { cn } from "@/lib/utils";
 import { count, formatDay, money, pnlClass } from "@/utils/format";
 
 const PLACEHOLDERS = [
   ["Buy Value", ArrowDownToLine], ["Sell Value", ArrowUpFromLine], ["C/F Opening", Layers], ["Net Value", Scale],
-  ["Realized P&L", CircleCheck], ["Unrealized P&L", Activity], ["MTM", TrendingUp], ["Cumulative P&L", Sigma],
+  ["Realized P&L", CircleCheck], ["Unrealized P&L", Activity], ["MTM", TrendingUp],
 ].map(([label, icon]) => ({ label, icon }));
 
 function buildCards(s) {
@@ -28,18 +28,13 @@ function buildCards(s) {
     { label: "MTM", icon: TrendingUp, value: money(s.broker_mtm), tone: pnlClass(s.broker_mtm),
       sub: `Realised + unrealised · change vs previous close ${money(s.mtm_pnl)}`,
       hint: "As the broker's MTM column: realised in the period + unrealised (at cost) at its end. The change vs previous close removes the unrealised carried in." },
-    { label: "Cumulative P&L", icon: Sigma, value: s.cumulative ? money(s.cumulative.total_pnl) : "—", tone: pnlClass(s.cumulative?.total_pnl),
-      sub: s.cumulative
-        ? `Realized ${money(s.cumulative.realized_pnl)} (${money(s.opening_pnl.realized_pnl)} till ${formatDay(s.opening_pnl.as_of)}) · unrealized ${money(s.cumulative.unrealized_pnl)}`
-        : "Import the broker P&L file for the C/F date",
-      hint: "Like the broker: P&L as on the C/F date + realized since, plus unrealized at original cost. Charges not included." },
   ];
 }
 
 export default function SummaryCards({ summary, loading }) {
   const cards = summary ? buildCards(summary) : PLACEHOLDERS;
   return (
-    <div className={cn("grid shrink-0 grid-cols-2 gap-3 transition-opacity duration-200 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8", summary && loading && "opacity-55")}
+    <div className={cn("grid shrink-0 grid-cols-2 gap-3 transition-opacity duration-200 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7", summary && loading && "opacity-55")}
       aria-busy={loading || undefined}>
       {cards.map(({ label, icon: Icon, value, sub, tone, hint }) => (
         <div key={label} title={hint} className="flex min-w-0 flex-col gap-1 rounded-xl border bg-card p-3 shadow-card transition-colors hover:border-ring/40">
