@@ -56,11 +56,11 @@ export default function PositionsTable({ filters, asOf, refreshKey, onChanged })
     <>
       <ErrorMessage>{positions.error}</ErrorMessage>
       {notice && (
-        <Alert className="border-emerald-200 bg-emerald-50 py-2 text-emerald-800">
+        <Alert className="border-emerald-200 bg-emerald-50 py-2 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-300">
           <CircleCheck />
-          <AlertDescription className="flex items-center justify-between gap-3 text-emerald-800">
+          <AlertDescription className="flex items-center justify-between gap-3 text-emerald-800 dark:text-emerald-300">
             <span>{notice}</span>
-            <Button variant="ghost" size="icon" className="size-6 text-emerald-800 hover:bg-emerald-100" onClick={() => setNotice("")} aria-label="Dismiss"><X /></Button>
+            <Button variant="ghost" size="icon" className="size-6 text-emerald-800 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-950" onClick={() => setNotice("")} aria-label="Dismiss"><X /></Button>
           </AlertDescription>
         </Alert>
       )}

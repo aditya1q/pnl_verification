@@ -30,7 +30,7 @@ export default function UploadResultModal({ result, onClose }) {
         {result && (
           <>
             <DialogHeader className="items-center text-center">
-              <div className="mb-1 grid size-11 place-items-center rounded-full bg-emerald-50 text-emerald-600"><CheckCircle2 className="size-6" /></div>
+              <div className="mb-1 grid size-11 place-items-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-300"><CheckCircle2 className="size-6" /></div>
               <DialogTitle>Net position imported</DialogTitle>
               <DialogDescription>Totals were checked against the report.</DialogDescription>
             </DialogHeader>

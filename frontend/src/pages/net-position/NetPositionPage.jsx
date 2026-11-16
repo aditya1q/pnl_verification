@@ -41,7 +41,7 @@ function DateStrip({ year, month, viewDate, loadedDays, onPick }) {
             className={cn(
               "relative h-8 cursor-pointer rounded-md border text-xs tabular-nums transition-colors",
               selected ? "border-primary bg-primary font-semibold text-primary-foreground shadow-sm"
-                : hasData ? "border-emerald-200 bg-emerald-50 font-semibold text-emerald-800 hover:bg-emerald-100"
+                : hasData ? "border-emerald-200 bg-emerald-50 font-semibold text-emerald-800 hover:bg-emerald-100 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-300 dark:hover:bg-emerald-950"
                   : "bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground",
             )}>
             {day} {MONTH_NAMES[month].slice(0, 3)}

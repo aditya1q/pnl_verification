@@ -36,6 +36,42 @@
   /* Table rows: opaque, so a pinned first column can carry the row colour */
   --zebra: #fafbfd;
   --row-hover: #f1f5fb;
+
+  --card-shadow: 0 1px 2px 0 rgb(16 24 40 / 0.04), 0 1px 3px 0 rgb(16 24 40 / 0.05);
+}
+
+/* Dark theme: <html class="dark">, set from the user menu (Light / Dark / System). */
+.dark {
+  color-scheme: dark;
+
+  --background: #0c121d;
+  --foreground: #e2e8f1;
+  --card: #141c2a;
+  --card-foreground: #e2e8f1;
+  --popover: #182133;
+  --popover-foreground: #e2e8f1;
+
+  --primary: #9db8e6;
+  --primary-foreground: #0c121d;
+  --secondary: #1d2738;
+  --secondary-foreground: #d3dbe8;
+  --muted: #1a2332;
+  --muted-foreground: #96a2b5;
+  --accent: #222f46;
+  --accent-foreground: #e2e8f1;
+  --destructive: #f0855a;
+
+  --border: #263247;
+  --input: #34415a;
+  --ring: #5d7dad;
+
+  --profit: #4cc77f;
+  --loss: #f27880;
+
+  --zebra: #111927;
+  --row-hover: #1b2537;
+
+  --card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.25);
 }
 
 @theme inline {
@@ -75,7 +111,7 @@
   --color-row-hover: var(--row-hover);
 
   /* Soft, layered card shadow */
-  --shadow-card: 0 1px 2px 0 rgb(16 24 40 / 0.04), 0 1px 3px 0 rgb(16 24 40 / 0.05);
+  --shadow-card: var(--card-shadow);
 }
 
 @layer base {

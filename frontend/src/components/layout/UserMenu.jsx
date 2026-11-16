@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { DropdownMenu } from "radix-ui";
-import { KeyRound, LogOut, UserPlus, UserRound, Users } from "lucide-react";
+import { Check, KeyRound, LogOut, Monitor, Moon, Sun, UserPlus, UserRound, Users } from "lucide-react";
 import { useAuth } from "@/auth/AuthProvider";
 import ToneBadge from "@/components/common/ToneBadge";
+import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
 import ChangePasswordDialog from "@/pages/login/ChangePasswordDialog";
 import CreateUserDialog from "@/pages/users/CreateUserDialog";
@@ -13,9 +14,16 @@ const itemClass = cn(
   "data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground [&_svg]:size-4 [&_svg]:text-muted-foreground",
 );
 
+const THEMES = [
+  { value: "light", label: "Light", icon: Sun },
+  { value: "dark", label: "Dark", icon: Moon },
+  { value: "system", label: "System", icon: Monitor },
+];
+
 // User icon on the right of the top bar: account details, password, users (admin) and sign out.
 export default function UserMenu() {
   const { user, isAdmin, logout } = useAuth();
+  const { theme, setTheme } = useTheme();
   const [dialog, setDialog] = useState(null); // "password" | "create"
 
   return (
@@ -52,6 +60,16 @@ export default function UserMenu() {
                 </DropdownMenu.Item>
               </>
             )}
+            <DropdownMenu.Separator className="-mx-1 my-1 h-px bg-border" />
+            <DropdownMenu.Label className="px-2 pt-1 pb-0.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">Theme</DropdownMenu.Label>
+            <DropdownMenu.RadioGroup value={theme} onValueChange={setTheme}>
+              {THEMES.map(({ value, label, icon: Icon }) => (
+                <DropdownMenu.RadioItem key={value} value={value} className={itemClass} onSelect={(e) => e.preventDefault()}>
+                  <Icon /> {label}
+                  <DropdownMenu.ItemIndicator className="ml-auto"><Check className="!text-foreground" /></DropdownMenu.ItemIndicator>
+                </DropdownMenu.RadioItem>
+              ))}
+            </DropdownMenu.RadioGroup>
             <DropdownMenu.Separator className="-mx-1 my-1 h-px bg-border" />
             <DropdownMenu.Item className={cn(itemClass, "text-destructive [&_svg]:text-destructive")} onSelect={logout}>
               <LogOut /> Sign out
