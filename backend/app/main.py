@@ -6,6 +6,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from .auth import require_login, router as auth_router, users_router
 from .backoffice import DAILY_SORT_FIELDS, MONTHLY_SORT_FIELDS, POSITION_SORT_FIELDS, ReportFilters
 from .carry_forward import CarryForwardError
 from .closing_rates import ROW_SORT_FIELDS, ClosingRateError
@@ -14,7 +15,8 @@ from .bhavcopy import BhavcopyError
 from .database import MongoStore
 from .opening_pnl import OpeningPnlError
 
-app = FastAPI(title="Net Position P&L API", version="2.0.0")
+# Every route needs a signed-in user (see app/auth.py); viewers may only use GET.
+app = FastAPI(title="Net Position P&L API", version="2.0.0", dependencies=[Depends(require_login)])
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
@@ -22,6 +24,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(auth_router)
+app.include_router(users_router)
 
 
 def make_json_safe(value):

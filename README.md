@@ -53,6 +53,30 @@ What the import does:
 - Re-uploading a day replaces it, so a day is never counted twice.
 - After importing, it lists weekdays since the previous report that have no report (missing, or a holiday).
 
+## Login and roles
+Every `/api` route except `/api/health` needs a signed-in user (`backend/app/auth.py`).
+
+| Role | Can do |
+|---|---|
+| admin | Everything, plus the **Users** page (add users, change role, reset password, disable) |
+| operator | View, and every import / upload / LTP change |
+| viewer | View only (GET requests; any change is refused with 403) |
+
+- **Access token**: JWT, 15 minutes (`ACCESS_TOKEN_MINUTES`). The frontend keeps it in memory and sends `Authorization: Bearer <token>` on every request.
+- **Refresh token**: JWT, 7 days (`REFRESH_TOKEN_DAYS`), in an httpOnly, SameSite=Strict cookie limited to `/api/auth`. It is rotated on every use and recorded in `refresh_tokens`. Reusing an old one ends that login session.
+- Changing a user's password, role or status signs them out everywhere at once. 5 failed sign-ins (per username and IP) lock sign-in for 15 minutes.
+- `backend/.env` needs `JWT_SECRET` (32+ random characters; the backend refuses to start without it). Changing it signs everyone out. Set `COOKIE_SECURE=true` when the site is served over HTTPS.
+
+First admin (then manage users from the app):
+
+```powershell
+cd backend
+.venv\Scripts\python -m app.create_user admin --role admin          # asks for the password
+.venv\Scripts\python -m app.create_user admin --reset               # forgotten password: set a new one
+```
+
+Endpoints: `POST /api/auth/login`, `POST /api/auth/refresh`, `POST /api/auth/logout`, `GET /api/auth/me`, `POST /api/auth/change-password`; admin: `GET/POST /api/users`, `PATCH /api/users/{username}`.
+
 ## MongoDB collections
 Database: `trade_ingestion`
 - `carry_forward`: opening positions from the C/F report (Net Qty at Close Rate).

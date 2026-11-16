@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, Pencil, RotateCcw, X } from "lucide-react";
 import { requestJson } from "@/api/client";
+import { useAuth } from "@/auth/AuthProvider";
 import ToneBadge from "@/components/common/ToneBadge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,6 +30,7 @@ function LtpSource({ row, stale }) {
 
 // LTP source badge with inline "Set LTP" / "Reset" for a manual price on the as-of date.
 export default function LtpCell({ row, asOf, onSaved }) {
+  const { canWrite } = useAuth();
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState("");
   const [saving, setSaving] = useState(false);
@@ -79,9 +81,9 @@ export default function LtpCell({ row, asOf, onSaved }) {
   return (
     <div className="flex items-center gap-1.5">
       <LtpSource row={row} stale={stale} />
-      <Button type="button" variant="ghost" size="sm" className="h-6 px-1.5 text-xs text-primary" disabled={saving}
-        onClick={() => { setValue(row.ltp ?? ""); setError(""); setEditing(true); }}><Pencil className="size-3" /> Set LTP</Button>
-      {row.ltp_source === "MANUAL" && row.ltp_date === asOf && (
+      {canWrite && <Button type="button" variant="ghost" size="sm" className="h-6 px-1.5 text-xs text-primary" disabled={saving}
+        onClick={() => { setValue(row.ltp ?? ""); setError(""); setEditing(true); }}><Pencil className="size-3" /> Set LTP</Button>}
+      {canWrite && row.ltp_source === "MANUAL" && row.ltp_date === asOf && (
         <Button type="button" variant="ghost" size="sm" className="h-6 px-1.5 text-xs text-muted-foreground" disabled={saving} onClick={clearManual}>
           <RotateCcw className="size-3" /> Reset</Button>
       )}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search, Upload } from "lucide-react";
 import { requestJson } from "@/api/client";
+import { useAuth } from "@/auth/AuthProvider";
 import SegmentedControl from "@/components/common/SegmentedControl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,6 +54,7 @@ function DateStrip({ year, month, viewDate, loadedDays, onPick }) {
 }
 
 export default function NetPositionPage() {
+  const { canWrite } = useAuth();
   const [initial] = useState(initialParams);
   const [exchange, setExchange] = useState(initial.exchange);
   const [viewDate, setViewDate] = useState(initial.date);
@@ -146,7 +148,7 @@ export default function NetPositionPage() {
               <SelectTrigger size="sm" className="w-[88px]" aria-label="Year"><SelectValue /></SelectTrigger>
               <SelectContent>{years.map((year) => <SelectItem key={year} value={String(year)}>{year}</SelectItem>)}</SelectContent>
             </Select>
-            <Button size="sm" onClick={() => setUploadOpen(true)}><Upload /> Upload net position</Button>
+            {canWrite && <Button size="sm" onClick={() => setUploadOpen(true)}><Upload /> Upload net position</Button>}
           </div>
         </div>
         <DateStrip year={selectedYear} month={selectedMonth} viewDate={viewDate} loadedDays={loadedDays} onPick={changeViewDate} />

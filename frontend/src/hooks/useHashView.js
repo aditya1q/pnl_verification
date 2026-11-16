@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const VIEWS = { NET_POSITION: "netposition", BACKOFFICE: "backoffice" };
+export const VIEWS = { NET_POSITION: "netposition", BACKOFFICE: "backoffice", USERS: "users" };
 
 // "#backoffice?exchange=NSE&date=2026-11-12" -> { page: "backoffice", params }
 function parseHash() {
@@ -10,7 +10,8 @@ function parseHash() {
 }
 
 function viewFromHash() {
-  return parseHash().page === VIEWS.BACKOFFICE ? VIEWS.BACKOFFICE : VIEWS.NET_POSITION;
+  const { page } = parseHash();
+  return Object.values(VIEWS).includes(page) ? page : VIEWS.NET_POSITION;
 }
 
 // Current page, driven by the URL hash (#netposition / #backoffice, with optional ?params).
