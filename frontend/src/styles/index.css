@@ -1,0 +1,88 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* shadcn/ui theme: the app's navy palette. Components read these variables
+   (bg-primary, text-muted-foreground, border-border, ring-ring, ...). */
+:root {
+  --radius: 0.5rem;
+
+  --background: #f5f7fa;
+  --foreground: #172033;
+  --card: #ffffff;
+  --card-foreground: #172033;
+  --popover: #ffffff;
+  --popover-foreground: #172033;
+
+  --primary: #172b4d;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f6;
+  --secondary-foreground: #243b5e;
+  --muted: #f1f4f8;
+  --muted-foreground: #5f6b7e;
+  --accent: #eef2f8;
+  --accent-foreground: #172b4d;
+  --destructive: #c2410c;
+
+  --border: #dfe4eb;
+  --input: #cfd6e0;
+  --ring: #8aa4c8;
+
+  /* P&L colours */
+  --profit: #15803d;
+  --loss: #c02f35;
+
+  /* Table rows: opaque, so a pinned first column can carry the row colour */
+  --zebra: #fafbfd;
+  --row-hover: #f1f5fb;
+}
+
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", "Inter", sans-serif;
+
+  --breakpoint-sm: 650px;
+  --breakpoint-md: 900px;
+  --breakpoint-lg: 1200px;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-profit: var(--profit);
+  --color-loss: var(--loss);
+  --color-zebra: var(--zebra);
+  --color-row-hover: var(--row-hover);
+
+  /* Soft, layered card shadow */
+  --shadow-card: 0 1px 2px 0 rgb(16 24 40 / 0.04), 0 1px 3px 0 rgb(16 24 40 / 0.05);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
